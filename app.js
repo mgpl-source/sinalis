@@ -260,14 +260,14 @@ class SinalisApp extends React.Component {
                 React.createElement("h1", null, "Como voc\u00EA quer come\u00E7ar?"),
                 React.createElement("p", null, "Primeiro, conhe\u00E7a o mascote do Sinalis. Depois, escolha uma jornada para personalizar sua experi\u00EAncia.")),
             [
-                { role: 'surdo', name: 'Adulto surdo', sub: 'Aprenda e se comunique com Libras, vídeos e imagens.', tone: 'mint', badge: 'cap', badgeSymbol: '🎓' },
-                { role: 'ouvinte', name: 'Ouvinte', sub: 'Apoie e participe com inclusão: Libras, comunidade e boas práticas.', tone: 'sand', badge: 'cool', badgeSymbol: '😎' },
-                { role: 'professor', name: 'Professor', sub: 'Ensine com recursos acessíveis e acompanhe seus alunos.', tone: 'stone', badge: 'glasses', badgeSymbol: '👓' }
+                { role: 'surdo', name: 'Adulto surdo', sub: 'Aprenda e se comunique com Libras, vídeos e imagens.', tone: 'mint', variant: 'surdo' },
+                { role: 'ouvinte', name: 'Ouvinte', sub: 'Apoie e participe com inclusão: Libras, comunidade e boas práticas.', tone: 'sand', variant: 'ouvinte' },
+                { role: 'professor', name: 'Professor', sub: 'Ensine com recursos acessíveis e acompanhe seus alunos.', tone: 'stone', variant: 'professor' }
             ].map(p => React.createElement("button", { className: 'persona rebuilt-card ' + p.tone, key: p.role, onClick: () => this.choose(p.role), "aria-label": p.name },
                 React.createElement("span", { className: "persona-visual" },
-                    React.createElement("span", { className: "persona-icon-box" },
+                    React.createElement("span", { className: 'persona-icon-box ' + p.variant },
                         React.createElement(Mascot, { size: "sm", className: "persona-head" }),
-                        React.createElement("span", { className: 'persona-badge ' + p.badge, "aria-hidden": "true" }, p.badgeSymbol))),
+                        React.createElement("span", { className: 'persona-accessory ' + p.variant, "aria-hidden": "true" }))),
                 React.createElement("span", { className: "persona-copy" },
                     React.createElement("span", { className: "persona-role" }, p.name),
                     React.createElement("small", null, p.sub)),
