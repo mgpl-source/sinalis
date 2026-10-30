@@ -27,9 +27,9 @@ const PATHS = {
         { id: 'perfil', title: 'Meu perfil', subtitle: 'Programa e configurações', icon: '👤' }
     ],
     professor: [
-        { id: 'professor-inicio', title: 'Área do professor', subtitle: 'Turmas e visão geral', icon: '🏫' },
+        { id: 'professor-inicio', title: 'Área do professor', subtitle: 'Grupos e visão geral', icon: '🏫' },
         { id: 'criar-atividade', title: 'Criar atividade', subtitle: 'Conteúdo acessível', icon: '📝' },
-        { id: 'acompanhar', title: 'Acompanhar alunos', subtitle: 'Progresso e feedback', icon: '👥' },
+        { id: 'acompanhar', title: 'Acompanhar participantes', subtitle: 'Progresso e feedback', icon: '👥' },
         { id: 'biblioteca', title: 'Biblioteca pedagógica', subtitle: 'Planos e materiais', icon: '📁' },
         { id: 'docentes', title: 'Comunidade docente', subtitle: 'Troca de experiências', icon: '💬' },
         { id: 'configuracoes', title: 'Configurações', subtitle: 'Preferências da conta', icon: '⚙️' }
@@ -73,9 +73,9 @@ const STUDENTS = [
     { name: 'Fábio Dias', progress: 72, status: 'Em dia' }
 ];
 const CLASS_GROUPS = [
-    { name: 'Turma 5º A', count: 14, progress: 82, status: 'Em dia' },
-    { name: 'Turma 6º B', count: 16, progress: 42, status: '2 em atenção' },
-    { name: 'Turma 7º C', count: 12, progress: 30, status: 'Novo' }
+    { name: 'Atendimento ao Cliente', count: 14, progress: 82, status: 'Em dia' },
+    { name: 'Recursos Humanos', count: 16, progress: 42, status: '2 em atenção' },
+    { name: 'Liderança e Gestão', count: 12, progress: 30, status: 'Novo' }
 ];
 const QUIZ = [
     { question: 'O que significa este sinal?', emoji: '🙏', choices: ['Obrigado', 'Por favor', 'Desculpa', 'Bom dia'], answer: 0 },
@@ -262,7 +262,7 @@ class SinalisApp extends React.Component {
             [
                 { role: 'surdo', name: 'Adulto surdo', sub: 'Aprenda e se comunique com Libras, vídeos e imagens.', tone: 'mint', variant: 'surdo' },
                 { role: 'ouvinte', name: 'Ouvinte', sub: 'Apoie e participe com inclusão: Libras, comunidade e boas práticas.', tone: 'sand', variant: 'ouvinte' },
-                { role: 'professor', name: 'Professor', sub: 'Ensine com recursos acessíveis e acompanhe seus alunos.', tone: 'stone', variant: 'professor' }
+                { role: 'professor', name: 'Professor', sub: 'Ensine com recursos acessíveis e acompanhe seus participantes.', tone: 'stone', variant: 'professor' }
             ].map(p => React.createElement("button", { className: 'persona rebuilt-card ' + p.tone, key: p.role, onClick: () => this.choose(p.role), "aria-label": p.name },
                 React.createElement("span", { className: "persona-visual" },
                     React.createElement("span", { className: "persona-icon-box" },
@@ -328,11 +328,11 @@ class SinalisApp extends React.Component {
                 React.createElement("div", null,
                     React.createElement("span", null, "\uD83C\uDFEB"),
                     React.createElement("strong", null, "3"),
-                    React.createElement("small", null, "Turmas")),
+                    React.createElement("small", null, "Grupos")),
                 React.createElement("div", null,
                     React.createElement("span", null, "\uD83D\uDC65"),
                     React.createElement("strong", null, "42"),
-                    React.createElement("small", null, "Alunos")),
+                    React.createElement("small", null, "Participantes")),
                 React.createElement("div", null,
                     React.createElement("span", null, "\uD83D\uDCDD"),
                     React.createElement("strong", null, 8 + this.state.activities.length),
@@ -342,14 +342,14 @@ class SinalisApp extends React.Component {
                 React.createElement("div", { className: "week-chart" }, [38, 63, 44, 90, 70, 30, 17].map((v, i) => React.createElement("div", { key: i },
                     React.createElement("span", { style: { height: v + '%', background: i === 3 ? 'var(--brown)' : '' } }),
                     React.createElement("small", null, ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'][i]))))),
-            this.section('Minhas turmas'),
+            this.section('Grupos de capacitação'),
             React.createElement("div", { className: "stack" }, CLASS_GROUPS.map((c, i) => React.createElement("button", { key: c.name, className: "class-card", onClick: () => { this.setState({ selectedClass: c.name }); this.go('acompanhar'); } },
                 React.createElement("span", { className: 'stripe ' + (i === 1 ? 'orange' : '') }),
                 React.createElement("div", { className: "flex-1" },
                     React.createElement("strong", null, c.name),
                     React.createElement("small", null,
                         c.count,
-                        " alunos"),
+                        " participantes"),
                     React.createElement(Bar, { value: c.progress })),
                 React.createElement("span", { className: "status-tag" }, c.status),
                 React.createElement("b", null, "\u203A")))),
@@ -650,7 +650,7 @@ class SinalisApp extends React.Component {
                 React.createElement("input", { value: this.state.newActivityTitle, onChange: e => this.setState({ newActivityTitle: e.target.value }), placeholder: "Ex.: Cumprimentos formais" })),
             React.createElement("label", { className: "field-label" },
                 "Descri\u00E7\u00E3o",
-                React.createElement("textarea", { value: this.state.newActivityDescription, onChange: e => this.setState({ newActivityDescription: e.target.value }), placeholder: "O que os alunos v\u00E3o aprender?" })),
+                React.createElement("textarea", { value: this.state.newActivityDescription, onChange: e => this.setState({ newActivityDescription: e.target.value }), placeholder: "O que os participantes v\u00E3o aprender?" })),
             React.createElement("h2", null, "Adicionar bloco"),
             React.createElement("div", { className: "block-picker" }, [['📝', 'Texto'], ['🎬', 'Vídeo'], ['❓', 'Pergunta'], ['🎙️', 'Áudio']].map(x => React.createElement("button", { className: this.state.activityKind === x[1] ? 'active' : '', key: x[1], onClick: () => this.setState({ activityKind: x[1] }) },
                 React.createElement("span", null, x[0]),
@@ -681,7 +681,7 @@ class SinalisApp extends React.Component {
                     this.toast('Atividade salva localmente.');
                     this.go('biblioteca');
                 })),
-            React.createElement("p", { className: "caption-note" }, "Publica\u00E7\u00E3o demonstrativa: atividades ficam apenas neste dispositivo, sem envio a alunos."));
+            React.createElement("p", { className: "caption-note" }, "Publica\u00E7\u00E3o demonstrativa: atividades ficam apenas neste dispositivo, sem envio aos participantes."));
         this.studentsPage = () => React.createElement("div", { className: "page-pad" },
             React.createElement("div", { className: "chips" }, ['Todos', 'Atenção', 'Concluídos'].map(t => this.pill(t, this.state.tab === t, () => this.setState({ tab: t })))),
             this.state.selectedClass && React.createElement("div", { className: "mini-banner" },
@@ -702,7 +702,7 @@ class SinalisApp extends React.Component {
                         s.progress < 50 ? 'revisar os primeiros sinais' : 'seguir com os próximos módulos',
                         ".")),
                 React.createElement("span", { className: "row-icon small" }, "\uD83D\uDCAC")))),
-            React.createElement("p", { className: "caption-note" }, "Dados de alunos s\u00E3o fict\u00EDcios, para demonstra\u00E7\u00E3o de interface."));
+            React.createElement("p", { className: "caption-note" }, "Dados de participantes s\u00E3o fict\u00EDcios, para demonstra\u00E7\u00E3o de interface."));
         this.libraryPage = () => React.createElement("div", { className: "page-pad" },
             React.createElement("div", { className: "chips" }, ['Planos', 'Materiais', 'Vídeos', 'Minhas atividades'].map(t => this.pill(t, (this.state.tab === 'Todos' ? 'Planos' : this.state.tab) === t, () => this.setState({ tab: t })))),
             this.section(this.state.tab === 'Minhas atividades' ? 'Atividades criadas' : 'Conteúdos pedagógicos'),
@@ -726,7 +726,7 @@ class SinalisApp extends React.Component {
                 React.createElement("input", { "aria-label": "Compartilhar experi\u00EAncia", placeholder: "Compartilhe uma experi\u00EAncia...", value: this.state.teacherPost, onChange: e => this.setState({ teacherPost: e.target.value }) }),
                 React.createElement("button", { onClick: () => { if (!this.state.teacherPost.trim())
                         return; const teacherPosts = [this.state.teacherPost, ...this.state.teacherPosts]; this.setState({ teacherPosts, teacherPost: '' }); this.save({ teacherPosts }); } }, "\uFF0B")),
-            [...this.state.teacherPosts.map(x => ({ author: this.state.name || 'Você', text: x, type: 'Minha publicação' })), { author: 'Marina · Prof. de Libras', text: 'Usei jogos de mímica para ensinar verbos. A turma amou e participou muito!', type: 'Dica' }, { author: 'Paulo · Prof. 6º ano', text: 'Alguém tem sugestões de vídeos em Libras sobre ciências?', type: 'Pergunta' }].map((x, i) => React.createElement("div", { className: "post-card", key: i },
+            [...this.state.teacherPosts.map(x => ({ author: this.state.name || 'Você', text: x, type: 'Minha publicação' })), { author: 'Marina · Prof. de Libras', text: 'Usei jogos de mímica para ensinar verbos. O grupo participou bastante!', type: 'Dica' }, { author: 'Paulo · Instrutor corporativo', text: 'Alguém tem sugestões de vídeos em Libras para atendimento ao cliente?', type: 'Pergunta' }].map((x, i) => React.createElement("div", { className: "post-card", key: i },
                 React.createElement("div", { className: "post-author" },
                     React.createElement(Mascot, { size: "tiny" }),
                     React.createElement("div", null,
