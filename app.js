@@ -265,9 +265,8 @@ class SinalisApp extends React.Component {
                 { role: 'professor', name: 'Professor', sub: 'Ensine com recursos acessíveis e acompanhe seus alunos.', tone: 'stone', variant: 'professor' }
             ].map(p => React.createElement("button", { className: 'persona rebuilt-card ' + p.tone, key: p.role, onClick: () => this.choose(p.role), "aria-label": p.name },
                 React.createElement("span", { className: "persona-visual" },
-                    React.createElement("span", { className: 'persona-icon-box ' + p.variant },
-                        React.createElement(Mascot, { size: "sm", className: "persona-head" }),
-                        React.createElement("span", { className: 'persona-accessory ' + p.variant, "aria-hidden": "true" }))),
+                    React.createElement("span", { className: "persona-icon-box" },
+                        React.createElement("img", { className: "persona-artwork", src: './assets/mascote-perfil-' + p.variant + '.webp', alt: 'Mascote do perfil ' + p.name }))),
                 React.createElement("span", { className: "persona-copy" },
                     React.createElement("span", { className: "persona-role" }, p.name),
                     React.createElement("small", null, p.sub)),
